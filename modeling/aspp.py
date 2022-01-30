@@ -31,7 +31,7 @@ class _ASPPModule(nn.Module):
 
         return x
 
-    def init_weight(self):
+    def _init_weight(self):
         for ly in self.children():
             if isinstance(ly, nn.Conv2d):
                 nn.init.kaiming_normal_(ly.weight, a=1)
@@ -88,7 +88,7 @@ class ASPP_train(nn.Module):
         return self.dropout(x)
         # return x
 
-    def init_weight(self):
+    def _init_weight(self):
         for ly in self.children():
             if isinstance(ly, nn.Conv2d):
                 nn.init.kaiming_normal_(ly.weight, a=1)
@@ -96,4 +96,7 @@ class ASPP_train(nn.Module):
 
 
 def build_aspp(backbone, output_stride, BatchNorm, args, separate):
-    return ASPP_train(backbone, output_stride, args.filter_multiplier, 5, BatchNorm, separate)
+    if args == None:
+        return ASPP_train(backbone, output_stride, None, 5, BatchNorm, separate)
+    else:
+        return ASPP_train(backbone, output_stride, args.filter_multiplier, 5, BatchNorm, separate)

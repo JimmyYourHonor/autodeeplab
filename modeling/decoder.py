@@ -62,7 +62,7 @@ class Decoder(nn.Module):
         x = self.last_linear(x)
         return x
 
-    def init_weight(self):
+    def _init_weight(self):
         for ly in self.children():
             if isinstance(ly, nn.Conv2d):
                 nn.init.kaiming_normal_(ly.weight, a=1)
