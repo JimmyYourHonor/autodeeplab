@@ -17,8 +17,18 @@ class tester(nn.Module):
         x = self.maxPool(x)
         x = x.squeeze()
         x = self.fc1(x)
-    
+        x = nn.functional.sigmoid(x)
+        
         return x
+    
+    def ex_forward(self, input_features):
+        return self.tester_model(input_features)
+    
+    def ex_parameters(self):
+        return self.tester_model.parameters()
+    
+    def c_parameters(self):
+        return self.fc1.parameters()
 
 if __name__ == "__main__":
     model = tester()
